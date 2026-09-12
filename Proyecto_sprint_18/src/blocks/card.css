@@ -1,0 +1,100 @@
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; 
+  padding: 0 100px;
+  box-sizing: border-box;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.card__image {
+  width: 100%;
+  height: 600px;
+  object-fit: cover; 
+  display: block;
+}
+.card__description {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+.card__title {
+  font-size: 24px;
+  margin: 0;
+  padding: 20px;
+  background-color: white;
+  color:black;
+  font-weight: bold;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.card__like-button {
+  cursor: pointer;
+  background-image: url(../images/Vector.png);
+  background-repeat: no-repeat;
+  width:25px;
+  height:20px;
+  border: none;
+  background-color: transparent;
+}
+.card__like-button:hover {
+  opacity: 0.7;
+} 
+.card__like-button_is-active {
+  background-image: url(../images/Union.png);
+  opacity: 1;
+}
+
+.card__delete-button {
+  cursor: pointer;
+  background-image: url(../images/deleteIcon.svg);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+.card__delete-button:hover {
+  opacity: 0.7;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  
+}
+@media screen and (max-width: 767px) {
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .grid__description{
+      display: flex;
+      justify-content: space-around;
+    }
+    .grid__container{
+      height: 400px;
+    }
+}

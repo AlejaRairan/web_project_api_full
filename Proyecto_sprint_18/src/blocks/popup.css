@@ -1,0 +1,145 @@
+.popup__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: white;
+}
+.popup__caption {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+.popup__form {
+  flex-direction: column;
+  color: black;
+  width: 430px;
+  
+  padding: 20px;
+  display: flex !important;
+}
+
+.popup__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup__title {
+  font-weight: 800;
+  color: black;
+  padding: 20px;
+}
+
+.popup__input {
+  margin-top: 10px;
+  border-bottom: 1px solid black;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.popup__input_type_error {
+  border-bottom: 1px solid red;
+}
+
+.popup__input:valid {
+  border-bottom: 1px solid green;
+}
+
+.popup__name,
+.popup__text {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup__input_type_avatar-url {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup__input-error {
+  color: red;
+  height: 14px;
+  margin-top: 5px;
+}
+.popup__button {
+  margin-top: 50px;
+  padding: 15px;
+  background-color: black;
+  color: white;
+}
+
+.popup__button_inactive {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.popup__button:hover {
+  opacity: 0.7;
+}
+
+.popup__close-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.popup__close-icon:hover {
+  opacity: 0.7;
+}
+
+.popup__image {
+  width: 100%;
+  height: auto;
+}
+
+.popup {
+  position: fixed;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 500px;
+}
+
+.popup__overlay {
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.popup__close-button {
+  position: absolute;
+  top: -50px;
+  right: -40px;
+  font-size: 4rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 766px) {
+  .popup__form {
+    top: 100px;
+    left: 100px;
+    width: 300px;
+  }
+  .popup__content{
+    width: 65%;
+    display:flex;
+    align-items: center;
+    height: 350px;
+  }
+  .popup {
+    display: flex;
+    justify-content: center;
+
+  }
+}
