@@ -1,4 +1,4 @@
-# Around the U.S.
+# web project around api full
 
 Aplicación de red social full-stack donde los usuarios pueden registrarse, iniciar sesión, ver un feed de tarjetas (fotos con "me gusta") y editar su perfil. Compuesta por un **frontend en React** y una **API REST propia en Express**, con autenticación mediante JWT.
 
