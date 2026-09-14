@@ -1,0 +1,154 @@
+# Around the U.S.
+
+Aplicación de red social full-stack donde los usuarios pueden registrarse, iniciar sesión, ver un feed de tarjetas (fotos con "me gusta") y editar su perfil. Compuesta por un **frontend en React** y una **API REST propia en Express**, con autenticación mediante JWT.
+
+## Demo
+
+🔗 **Frontend:** [wtwrr.chickenkiller.com](https://wtwrr.chickenkiller.com)
+🔗 **API:** [api.wtwrr.chickenkiller.com](https://api.wtwrr.chickenkiller.com)
+
+---
+
+## Frontend
+
+Construido con **React**, se conecta a la API REST propia y maneja autenticación, rutas protegidas y las operaciones principales de la red social.
+
+### Tecnologías
+
+- **React** (hooks, Context API)
+- **Vite** como bundler
+- **react-router-dom** para el ruteo y las rutas protegidas
+- **CSS** siguiendo la metodología **BEM**
+- **REST API** propia con autenticación JWT
+
+### Funcionalidades
+
+- Registro e inicio de sesión de usuarios (`/signup`, `/signin`) con validación de formularios
+- Manejo de token JWT guardado en `localStorage`, verificado al cargar la app
+- Rutas protegidas: solo usuarios autenticados pueden ver el feed principal (`ProtectedRoute`)
+- Redirección automática de usuarios ya logueados que intentan volver a `/signin` o `/signup` (`RedirectIfLoggedIn`)
+- Header dinámico con 3 estados según autenticación y ruta actual
+- Popup de confirmación (`InfoTooltip`) que muestra ícono y mensaje distintos según el resultado del registro (éxito o error)
+- Edición de perfil, agregado y eliminado de tarjetas, sistema de "me gusta"
+- Diseño responsive (overlays con `position: fixed` + flexbox en vez de valores fijos en píxeles)
+
+### Estructura de componentes principales
+
+- `App.js` — enrutamiento general, estado de autenticación, layout con `page` / `page__content`
+- `Header` — navegación dinámica según estado de sesión
+- `Login` / `Register` — formularios de autenticación
+- `ProtectedRoute` — bloquea rutas privadas a usuarios no logueados
+- `RedirectIfLoggedIn` — evita que un usuario logueado vuelva a ver login/registro
+- `InfoTooltip` — popup de confirmación de registro (éxito/error)
+- `Api.jsx` — clase que centraliza las peticiones a la API (usuarios, tarjetas), leyendo el token dinámicamente desde `localStorage`
+- `auth.js` — funciones `register`, `authorize` y `checkToken` contra la API de autenticación
+
+### Convenciones de código
+
+- Nomenclatura de clases CSS en **BEM**, con nombres que reflejan el rol real del elemento (por ejemplo, en el popup de registro: `register` como overlay, `register__card` como tarjeta, `register__close-btn` como botón de cerrar)
+- El token JWT nunca se hardcodea: cada método de `Api.jsx` lo obtiene con `localStorage.getItem("jwt")` al momento de la petición
+- Linting con **ESLint**
+
+### Instalación y ejecución local
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+## Backend — Around the US API
+
+API REST que gestiona usuarios y tarjetas (cards) con foto, con autorización mediante JWT.
+
+### Tecnologías
+
+- Node.js / Express 5
+- MongoDB / Mongoose
+- JSON Web Tokens (jsonwebtoken) para autorización
+- bcryptjs para hash de contraseñas
+- celebrate / Joi para validación de solicitudes
+- winston / express-winston para logging de requests y errores
+- cors para habilitar solicitudes cross-origin
+- dotenv para variables de entorno
+- ESLint (airbnb-base) para linting
+- PM2 para gestión del proceso en producción
+- nginx como proxy inverso, con certificados SSL (Let's Encrypt / Certbot)
+
+### Estructura del proyecto
+
+```
+├── app.js
+├── controllers/
+│   ├── users.js
+│   └── cards.js
+├── models/
+│   ├── user.js
+│   └── card.js
+├── routes/
+│   ├── users.js
+│   └── cards.js
+├── middlewares/
+│   ├── auth.js
+│   ├── errorhandler.js
+│   ├── logger.js
+│   └── validators.js
+├── errors/
+│   ├── not-found-error.js
+│   ├── bad-request-error.js
+│   ├── unauthorized-error.js
+│   ├── forbidden-error.js
+│   └── conflict-error.js
+└── .env (solo en el servidor, no versionado)
+```
+
+### Rutas de la API
+
+#### Públicas (sin autorización)
+
+| Método | Ruta       | Descripción                          |
+|--------|------------|---------------------------------------|
+| POST   | /signup    | Registra un nuevo usuario             |
+| POST   | /signin    | Inicia sesión y devuelve un JWT       |
+
+#### Protegidas (requieren header `Authorization: Bearer <token>`)
+
+| Método | Ruta                  | Descripción                              |
+|--------|------------------------|-------------------------------------------|
+| GET    | /users                | Devuelve todos los usuarios                |
+| GET    | /users/me             | Devuelve el usuario autenticado            |
+| GET    | /users/:id            | Devuelve un usuario por ID                 |
+| PATCH  | /users/me             | Actualiza el nombre y la descripción       |
+| PATCH  | /users/me/avatar      | Actualiza el avatar                        |
+| GET    | /cards                | Devuelve todas las tarjetas                |
+| POST   | /cards                | Crea una nueva tarjeta                     |
+| DELETE | /cards/:cardId        | Elimina una tarjeta (solo si es del dueño) |
+| PUT    | /cards/:cardId/likes  | Da "me gusta" a una tarjeta                |
+| DELETE | /cards/:cardId/likes  | Quita el "me gusta" de una tarjeta         |
+
+### Instalación y ejecución local
+
+```bash
+npm install
+npm run dev
+```
+
+El servidor corre por defecto en el puerto `3000`.
+
+En modo desarrollo (`NODE_ENV !== 'production'`), el proyecto funciona sin un archivo `.env`, usando valores por defecto internos.
+
+### Variables de entorno (producción)
+
+Crear un archivo `.env` en la raíz del proyecto **solo en el servidor** (no se sube al repositorio):
+
+```
+NODE_ENV=production
+JWT_SECRET=<clave secreta larga y aleatoria>
+```
+
+---
+
+## Despliegue
+
+El proyecto (frontend y backend) corre en una VM de Google Cloud. El backend se gestiona con PM2 para reinicio automático ante caídas, y ambos se sirven a través de nginx como proxy inverso con certificado SSL, permitiendo el acceso vía HTTPS por los dominios registrados.
