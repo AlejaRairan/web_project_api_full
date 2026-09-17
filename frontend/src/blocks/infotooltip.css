@@ -47,11 +47,11 @@
 }
 
 .register__info-icon_success {
-  background-image: url("C:/Users/aleja/Desktop/Proyecto_sprint_18/src/images/registered.svg");
+  background-image: url("src/images/Registered.svg");
 }
 
 .register__info-icon_error {
-  background-image: url("C:/Users/aleja/Desktop/Proyecto_sprint_18/src/images/error.svg");
+  background-image: url("src/images/error.svg");
 }
 
 @media screen and (max-width: 767px) {

@@ -10,7 +10,6 @@ const errorHandler = require("./middlewares/errorhandler");
 const { PORT = 3000 } = process.env;
 const { errors, isCelebrateError } = require("celebrate");
 const BadRequestError = require("./errors/BadRequestError");
-const { errors } = require("celebrate");
 const {
   validateCreateUser,
   validateLogin,
