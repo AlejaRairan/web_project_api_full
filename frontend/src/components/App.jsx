@@ -45,12 +45,13 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    api
-      .loadCard()
-      .then((data) => setCards(data))
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+  if (!loggedIn) return;
+  api
+    .loadCard()
+    .then((data) => setCards(data))
+    .catch((err) => console.error(err));
+}, [loggedIn]);
 
   const handleCardLike = async (card) => {
     const isLiked = card.likes.includes(currentUser._id);
@@ -84,14 +85,15 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+  if (!loggedIn) return;
+  api
+    .getUserInfo()
+    .then((data) => {
+      setCurrentUser(data);
+    })
+    .catch((err) => console.error(err));
+}, [loggedIn]);
 
   const handleUpdateUser = (data) => {
     api
