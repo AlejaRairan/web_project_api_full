@@ -8,10 +8,8 @@ Aplicación de red social full-stack donde los usuarios pueden registrarse, inic
 🔗 **API:** [api.wtwrr.chickenkiller.com](https://api.wtwrr.chickenkiller.com)
 ## Demo
 
-📺 ## Demo
+📺 [Ver video demo en YouTube](https://youtu.be/https://youtu.be/Q0AIy2pir6Y?feature=shared)
 
-[![Video demo](https://img.youtube.com/vi/https://youtu.be/Q0AIy2pir6Y?feature=shared/0.jpg)](https://youtu.be/https://youtu.be/Q0AIy2pir6Y?feature=shared)
----
 
 ## Frontend
 
