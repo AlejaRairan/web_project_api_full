@@ -45,7 +45,12 @@
   background-position: center;
   margin: 0 auto;
 }
-
+.register__info-icon_success {
+  background-image: url(../images/Registered.svg);
+}
+.register__info-icon_error {
+  background-image: url(../images/error.svg);
+}
 
 @media screen and (max-width: 767px) {
   .register__card{

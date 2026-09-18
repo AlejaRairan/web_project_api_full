@@ -5,6 +5,7 @@ import errorIcon from "../../images/error.svg";
 
 const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
   console.log("isOpen en InfoTooltip.jsx:", isOpen);
+  console.log(errorIcon);
   if (!isOpen) {
     return null;
   }
@@ -16,9 +17,7 @@ const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
         </button>
         <div
           className={`register__info-icon ${isSuccess ? "register__info-icon_success" : "register__info-icon_error"}`}
-          style={{
-            backgroundImage: `url(${isSuccess ? registeredIcon : errorIcon})`,
-          }}
+      
         />
         <h2 className="register__popup-title">
           {isSuccess
